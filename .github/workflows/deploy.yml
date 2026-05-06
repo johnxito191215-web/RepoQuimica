@@ -1,29 +1,29 @@
-name: 🚀 Deploy to AlwaysData
+name: 🚀 Tarea de Despliegue
+
 on:
- push:
-  branches:
-   - main
+   push:
+     branches:
+       - main
+
 jobs:
- deploy:
-  runs-on: ubuntu-latest
-  steps:
-   - name: 📦 Clonar repositorio
-     uses: actions/checkout@v4
-     
-   - name: 🚀 Subir archivos al hosting vía FTPS (AlwaysData)
-     uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-     with:
-      server: ftp-johnxito.alwaysdata.net 
-      username: ${{ secrets.FTP_USERNAME }}
-      password: ${{ secrets.FTP_PASSWORD }}
-      server-dir: ${{ secrets.FTP_TARGET }}/
-      port: 21
-      protocol: ftps
-      security: strict    
-      local-dir: ./
-      exclude: |
-       **/.git*
-       **/.github*
-       **/README.md
-       **/node_modules/**
-       **/.env
+  deploy:
+    name: 🎉 Trabajo de Despliegue
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Obteniendo el código más reciente
+        uses: actions/checkout@v4
+
+      - name: 📂 Sincronizando archivos via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp-johnxito.alwaysdata.net # Change if using another host
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: www/ # Replace with your correct path
+          protocol: ftps
+          timeout: 86400000
+          log-level: standard
+          exclude: |
+           .git/**
+           .github/**
